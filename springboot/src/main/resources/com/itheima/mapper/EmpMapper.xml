@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.EmpMapper">
+    <sql id="allColumn">
+        id
+        , username, password, name, gender, image, job, entrydate, dept_id, create_time, update_time
+    </sql>
+    <sql id="Column">
+        username
+        , password, name, gender, image, job, entrydate, dept_id, create_time, update_time
+    </sql>
+
+    <!--    insert into Emp(username , password, name, gender, image, job, entrydate, dept_id, create_time, update_time)-->
+    <!--    values(#{username},#{password},#{name},#{gender},#{image},#{job},#{entrydate},#{deptId},#{createTime},#{updateTime})-->
+    <insert id="insert" parameterType="com.itheima.pojo.Emp">
+        insert into Emp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">username,</if>
+            <if test="password != null">password,</if>
+            <if test="name != null">name,</if>
+            <if test="gender != null">gender,</if>
+            <if test="image != null and image != ''">image,</if>
+            <if test="job != null">job,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="username != null">#{username},</if>
+            <if test="password != null">#{password},</if>
+            <if test="name != null">#{name},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="image != null and image != ''">#{image},</if>
+            <if test="job != null">#{job},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--    update emp set username=#{username}, name = #{name}, gender = #{gender}, image = #{image}, job = #{job}, entrydate = #{entrydate}, dept_id = #{deptId}, update_time = #{updateTime} where id = #{id}-->
+    <update id="update" parameterType="com.itheima.pojo.Emp">
+        update emp
+        <set>
+            <if test="username">username = #{username},</if>
+            <if test="name">name = #{name},</if>
+            <if test="gender">gender = #{gender},</if>
+            <if test="image">image = #{image},</if>
+            <if test="job">job = #{job},</if>
+            <if test="entrydate">entrydate = #{entrydate},</if>
+            <if test="deptId">dept_id = #{deptId},</if>
+            <if test="updateTime">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--    delete from emp where id in (1,2,3)-->
+    <delete id="delete">
+        delete
+        from emp
+        where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--        select * from emp where name like concat('%',?,'%') and gender = #{gender} and entrydate between #{begin} and #{end} limit #{index},#{pageSize} order by update_time desc-->
+    <select id="list" resultType="com.itheima.pojo.Emp">
+        select
+        <include refid="allColumn"/>
+        from emp
+        <where>
+            <!--            用于name是String类型，当前端未传入name值时，name值默认为''(空)；-->
+            <if test="name != null and name != ''">
+                name like concat('%',#{name},'%')
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="begin != null and end != null">
+                and entrydate between #{begin} and #{end}
+            </if>
+        </where>
+        order by update_time desc
+    </select>
+
+    <!--    select * from emp where id = #{id}-->
+    <select id="selectById" parameterType="integer" resultType="com.itheima.pojo.Emp">
+        select <include refid="allColumn"/>
+        from emp
+        where id = #{id}
+    </select>
+
+    <!--    select * from emp where username=#{username} and password = #{password}-->
+    <select id="getByUsernameAndPassword" resultType="com.itheima.pojo.Emp">
+        select
+        <include refid="allColumn"/>
+        from emp
+        <where>
+            <if test="username != null">
+                username = #{username}
+            </if>
+            <if test="password != null">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+</mapper>
