@@ -23,32 +23,32 @@ public class DeptController {
     //    @RequestMapping(value = "/depts",method = RequestMethod.GET)
     @GetMapping // @RequestMapping的衍生注解，相当于get方式的RequestMapping
     public Result selectAll() {
-        log.info("==================== 查询全部部门数据 ====================");
         List<Dept> deptList = deptService.selectAll();
+        log.info("==================== 查询全部部门数据 ====================");
         return Result.success(deptList);
     }
 
     //    删除部门接口
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
-        log.info("==================== 根据ID删除部门数据id:{}====================", id);
         deptService.deleteById(id);
+        log.info("==================== 根据ID删除部门数据id:{}====================", id);
         return Result.success();
     }
 
     //    添加部门
     @PostMapping
     public Result add(@RequestBody Dept dept) {
-        log.info("==================== 新增部门 ====================");
         deptService.add(dept);
+        log.info("==================== 新增部门 ====================");
         return Result.success();
     }
 
     // 根据ID查询
     @GetMapping("/{id}")
     public Result selectById(@PathVariable Integer id) {
-        log.info("==================== 根据ID查询部门数据id:{}====================", id);
         List<Dept> dept = deptService.selectById(id);
+        log.info("==================== 根据ID查询部门数据id:{}====================", id);
         return Result.success(dept);
     }
 
@@ -56,8 +56,8 @@ public class DeptController {
     // TODO:修改部门数据，报错JSON parse error: Cannot deserialize value of type `com.itheima.pojo.Dept` from Array value
     @PutMapping
     public Result update(@RequestBody List<Dept> depts) {
+         deptService.update(depts.get(0));
         log.info("==================== 修改部门数据 ====================", depts.get(0).getId());
-//         deptService.update(depts.get(0));
         return Result.success();
     }
 }

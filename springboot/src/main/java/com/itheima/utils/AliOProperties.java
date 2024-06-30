@@ -12,7 +12,5 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "aliyun.oss")  //自动注入配置信息
 public class AliOProperties {
     private String endpoint;
-    private String accessKeyId;
-    private String accessKeySecret;
     private String bucketName;
 }

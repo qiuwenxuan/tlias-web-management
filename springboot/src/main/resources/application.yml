@@ -27,17 +27,10 @@ mybatis:
     map-underscore-to-camel-case: true
 
 
-#aliyun:
-#  oss:
-#    endpoint: https://oss-cn-nanjing.aliyuncs.com
-#    accessKeyId: LTAI5t75aho9HZ3Yhpq6ECHU
-#    accessKeySecret: FOx618MZxQPl9Ixs8dA7IDDLLIXhpc
-#    bucketName: web-tlias-xuanchen
-
-# aliyun配置变量
+# aliyun配置属性值
 aliyun:
   oss:
     endpoint: https://oss-cn-nanjing.aliyuncs.com
-    access-key-id: LTAI5t75aho9HZ3Yhpq6ECHU
-    access-key-secret: FOx618MZxQPl9Ixs8dA7IDDLLIXhpc
-    bucket-name: web-tlias-xuanchen
+    bucketName: web-tlias-xuanchen
+
+

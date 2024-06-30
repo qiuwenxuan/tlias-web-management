@@ -43,29 +43,29 @@ public class EmpController {
      */
     @DeleteMapping("/{ids}")
     public Result delete(@PathVariable List<Integer> ids) {
-        log.info("==================== 删除员工id为：{} ====================", ids);
         empService.delete(ids);
+        log.info("==================== 删除员工id为：{} ====================", ids);
         return Result.success();
     }
 
     @PostMapping
     public Result insert(@RequestBody Emp emp) {
-        log.info("==================== 添加员工emp:{} ====================", emp);
         empService.insert(emp);
+        log.info("==================== 添加员工emp:{} ====================", emp);
         return Result.success();
     }
 
     @GetMapping("/{id}")
     public Result selectById(@PathVariable Integer id) {
-        log.info("==================== 查询员工的id:{} ====================", id);
         Emp emp = empService.selectById(id);
+        log.info("==================== 查询员工的id:{} ====================", id);
         return Result.success(emp);
     }
 
     @PutMapping
     public Result update(@RequestBody Emp emp) {
-        log.info("==================== 修改员工的信息：{} ====================", emp);
         empService.update(emp);
+        log.info("==================== 修改员工的信息：{} ====================", emp);
         return Result.success();
     }
 
